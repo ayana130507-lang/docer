@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: docer-app
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    region: oregon
+    plan: free
+    envVars:
+      - key: PORT
+        value: 5000
+    autoDeploy: true
+    healthCheckPath: /
+    scaling:
+      minInstances: 1
+      maxInstances: 3
+      scalingPolicy: cpu
+      cpuThreshold: 60

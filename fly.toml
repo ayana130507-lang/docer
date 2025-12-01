@@ -1,0 +1,27 @@
+app = "docer-app"
+primary_region = "ams"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "5000"
+
+[http_service]
+  internal_port = 5000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 512
+
+[processes]
+  web = "gunicorn -b 0.0.0.0:5000 app:app --workers 4"
+
+[autoscaling]
+  enabled = true
+  min_machines = 1
+  max_machines = 3
